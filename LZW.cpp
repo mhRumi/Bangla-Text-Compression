@@ -26,7 +26,6 @@ Iterator compress(const string &uncompressed, Iterator result) {
       dictionary[wc] = dictSize++;
 
       w = string(1, c);
-      //cout<<wc<<endl;
     }
   }
   // Output the code for w.
@@ -35,8 +34,6 @@ Iterator compress(const string &uncompressed, Iterator result) {
   return result;
 }
 
-// Decompress a list of output ks to a string.
-// "begin" and "end" must form a valid range of ints
 template <typename Iterator>
 string decompress(Iterator begin, Iterator end) {
   // Build the dictionary.
@@ -50,7 +47,7 @@ string decompress(Iterator begin, Iterator end) {
   string entry;
   for ( ; begin != end; begin++) {
     int k = *begin;
-    //cout<<"k: "<<k<<endl;
+
     if (dictionary.count(k))
       entry = dictionary[k];
     else if (k == dictSize){
@@ -74,14 +71,14 @@ int main() {
 
   ifstream input;
   ofstream output ("output.txt");
-  string text;
+  string text, sam;
   input.open("input.txt");
   if(input.is_open()){
-    while(!input.eof()){
-        char t;
-        input>>t;
-        text += t;
-    }
+    while(input.good())
+        {
+            getline(input, sam);
+            text += sam;
+        }
   }
 
   vector<int> compressed;
@@ -92,15 +89,22 @@ int main() {
       for(int i=0; i<compressed.size(); i++)
       {
           output << compressed[i];
-          output << ",";
+          output << " ";
       }
       output.close();
   }
+  cout<<"Size: "<<compressed.size()<<endl;
 
-  //copy(compressed.begin(), compressed.end(), ostream_iterator<int>(cout, ", "));
-  //cout <<endl;
+//  copy(compressed.begin(), compressed.end(), ostream_iterator<int>(cout, ", "));
+//  cout <<endl;
   string decompressed = decompress(compressed.begin(), compressed.end());
   cout << decompressed << endl;
+
+//  for(int i = 0; i<compressed.size(); i++)
+//    cout<<compressed[i]<<endl;
+
+
+    cout<<"Size: "<<compressed.size()<<endl;
 
   return 0;
 }
