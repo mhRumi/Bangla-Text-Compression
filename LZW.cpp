@@ -73,13 +73,14 @@ int main() {
   ofstream output ("output.txt");
   string text, sam;
   input.open("input.txt");
-  if(input.is_open()){
-    while(input.good())
-        {
-            getline(input, sam);
-            text += sam;
-        }
-  }
+//  if(input.is_open()){
+//    while(input.good())
+//        {
+//            getline(input, sam);
+//            text += sam;
+//        }
+//  }
+  text = "বানান";
 
   vector<int> compressed;
   compress(text, back_inserter(compressed));
